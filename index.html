@@ -123,6 +123,22 @@
       .colCheck2 { width:38px; }
       .priorityRow { font-size:16px; gap:7px; }
     }
+    /* Celular en vertical: la fila pasa a dos líneas. Arriba el número y el
+       nombre a todo el ancho; abajo, en una sola línea, los controles. Así el
+       nombre nunca se parte letra por letra. */
+    @media (max-width: 760px) {
+      .priorityRow { flex-wrap:wrap; row-gap:8px; column-gap:8px; padding:11px 8px; }
+      .priorityRow .priorityText { flex:1 1 calc(100% - 34px); min-width:0;
+        word-break:normal; overflow-wrap:break-word; line-height:1.3; }
+      .priorityRow .colPlan, .priorityRow .colNota, .priorityRow .colVence,
+      .priorityRow .colPlay, .priorityRow .colCheck2 {
+        width:auto; border-left:none; padding-left:0; }
+      .priorityRow .colPlan { margin-left:26px; }
+      .priorityRow .colVence { flex:1 1 auto; }
+      .priorityRow .colCheck2 { margin-left:auto; }
+      .priorityRow .deadlineBadge { font-size:13.5px; padding:3px 9px; white-space:nowrap; }
+      .priorityRow .rowPlan { font-size:13px; }
+    }
     .priorityRow:last-child { border-bottom:none; }
     .priorityRank { font-family:'JetBrains Mono',monospace; font-weight:700; color:#00D9A3; font-size:17.5px; width:16px; flex-shrink:0; }
     .anchorCard { background:linear-gradient(135deg,#0F251F,#0F151B); border:1px solid #00D9A355; border-left:4px solid #00D9A3; border-radius:10px; padding:14px 16px; margin-bottom:14px; font-size:18px; font-style:italic; color:#B9F5E4; line-height:1.4; }
@@ -374,6 +390,16 @@
     .cardBottom { display:flex; align-items:center; justify-content:space-between; padding-top:8px; border-top:1px solid #1A2530; }
     .timeReadout { font-family:'JetBrains Mono',monospace; font-size:18.5px; color:#9AA7B4; }
     .timerBtn { border:none; border-radius:6px; padding:7px 12px; font-size:18px; font-weight:700; color:#04110D; cursor:pointer; }
+
+    /* Celular en vertical: en los bloques del calendario los botones pasan
+       debajo del nombre, para que el texto tenga todo el ancho. */
+    @media (max-width: 760px) {
+      .slotCell.filled { flex-wrap:wrap; align-content:center; gap:4px; padding:4px 5px; }
+      .slotCell.filled .blockTxt { flex:1 1 100%; text-align:center; }
+      .slotCell.filled .blockActs { margin:0 auto; }
+      .blockAct { width:27px; height:27px; font-size:12px; }
+      .slotCell .taskName { word-break:normal; overflow-wrap:break-word; }
+    }
   </style>
 </head>
 <body>
