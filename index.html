@@ -837,14 +837,20 @@
       var selHora = document.getElementById('fPlanHora');
       if (!selDia || !selHora || !state.dayNames) return;
 
+      // Días con horario configurado. Si todavía no llegó el horario (o no
+      // hay ninguno activo), se ofrecen todos los días para no dejar el
+      // desplegable vacío.
       var activos = diasActivos();
+      if (!activos.length) {
+        activos = state.dayNames.map(function (_, i) { return i; });
+      }
       var hoy = nowDayIndex();
       var htmlDias = '';
       activos.forEach(function (di) {
         htmlDias += '<option value="' + di + '"' + (di === hoy ? ' selected' : '') + '>' +
                     state.dayNames[di] + '</option>';
       });
-      selDia.innerHTML = htmlDias || '<option value="">sin días activos</option>';
+      selDia.innerHTML = htmlDias;
 
       var r = rangoComun();
       var htmlHoras = '';
@@ -976,6 +982,10 @@
     function render() {
       try {
         actualizarBotonLista();
+        // Si el formulario está abierto, rellenar sus desplegables con el
+        // horario ya cargado (pudo abrirse antes de que llegaran los datos).
+        var barra = document.getElementById('formBar');
+        if (barra && barra.style.display !== 'none') llenarSelectoresPlan();
         var bp = document.getElementById('brandPhrase');
         if (bp) bp.textContent = fraseDelDia(clientNow);
         if (lastError) { renderErrorBanner(); return; }
